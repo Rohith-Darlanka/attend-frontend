@@ -28,16 +28,16 @@ export default function Dashboard() {
 const handleLogout = async () => {
   setLogoutLoading(true);
   try {
-    await authApi.post("/auth/logout/");
-    // ✅ Wait for cookies to actually delete
+    await authApi.post("/auth/logout/", {}, { withCredentials: true });
     setTimeout(() => {
       window.location.href = "/";
-    }, 800); // wait 0.8 seconds
+    }, 800);
   } catch (err) {
     console.error("Logout failed:", err);
     window.location.href = "/";
   }
 };
+
 
 
   if (loading) {

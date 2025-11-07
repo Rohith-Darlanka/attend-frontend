@@ -9,20 +9,21 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
-    
-    try {
-      await authApi.post("/auth/login/", { email, password });
-      window.location.href = "/dashboard";
-    } catch (err) {
-      console.error("Login failed:", err);
-      setError("Invalid email or password. Please try again.");
-      setLoading(false);
-    }
-  };
+const handleLogin = async (e) => {
+  e.preventDefault();
+  setError("");
+  setLoading(true);
+
+  try {
+    await authApi.post("/auth/login/", { email, password }, { withCredentials: true });
+    window.location.href = "/dashboard";
+  } catch (err) {
+    console.error("Login failed:", err);
+    setError("Invalid email or password. Please try again.");
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="relative min-h-screen bg-black flex items-center justify-center p-4 overflow-hidden">
