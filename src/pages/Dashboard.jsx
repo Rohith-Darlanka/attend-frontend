@@ -25,16 +25,20 @@ export default function Dashboard() {
     fetchUser();
   }, [navigate]);
 
-  const handleLogout = async () => {
-    setLogoutLoading(true);
-    try {
-      await authApi.post("/auth/logout/");
+const handleLogout = async () => {
+  setLogoutLoading(true);
+  try {
+    await authApi.post("/auth/logout/");
+    // ✅ Wait for cookies to actually delete
+    setTimeout(() => {
       window.location.href = "/";
-    } catch (err) {
-      console.error("Logout failed:", err);
-      window.location.href = "/";
-    }
-  };
+    }, 800); // wait 0.8 seconds
+  } catch (err) {
+    console.error("Logout failed:", err);
+    window.location.href = "/";
+  }
+};
+
 
   if (loading) {
     return (
